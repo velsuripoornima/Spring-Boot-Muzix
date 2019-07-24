@@ -12,4 +12,8 @@ public interface TrackService {
     public Track saveTrack(Track track);
 
     public List<Track> getAllTrack();
+    
+     public boolean updateTrack(Track track,int id);
+
+    public void deleteTrack(int id);
 }
