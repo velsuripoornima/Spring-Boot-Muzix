@@ -5,16 +5,18 @@ import com.stackroute.springboot.muzix.exceptions.UserAlreadyExistException;
 import com.stackroute.springboot.muzix.model.Track;
 import com.stackroute.springboot.muzix.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service  //it is a service class
+@Service("TrackService")  //it is a service class
 public class TrackServiceImpl implements TrackService {
 
     //overriding all the methods from trackservice interface
     @Autowired
+//    @Value("${sourceLocation:c:/temp/input}")
     TrackRepository trackRepository;
 
     public TrackServiceImpl(TrackRepository trackRepository) {
