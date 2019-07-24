@@ -1,5 +1,7 @@
 package com.stackroute.springboot.muzix.controller;
 
+import com.stackroute.springboot.muzix.exceptions.TrackNotFoundException;
+import com.stackroute.springboot.muzix.exceptions.UserAlreadyExistException;
 import com.stackroute.springboot.muzix.model.Track;
 import com.stackroute.springboot.muzix.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class TrackController {
             responseEntity=new ResponseEntity<String>("row added successfully", HttpStatus.CREATED);
             return responseEntity;
         }
-        catch (Exception e){
+        catch (UserAlreadyExistException e){
 
             //otherwise it will rise an exception
             responseEntity=new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
@@ -44,5 +46,24 @@ public class TrackController {
         //getting all tracks
         return new ResponseEntity<List<Track>>(trackService.getAllTrack(),HttpStatus.OK);
 
+    }
+
+    @PutMapping("/track/{id}")
+    public ResponseEntity<?> getTrack(@RequestBody Track track,@PathVariable("id") int id) {
+
+        try {
+            trackService.updateTrack(track, id);
+            return new ResponseEntity<String>("updated successfully",HttpStatus.CREATED);
+        }
+        catch (TrackNotFoundException e){
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+        }
+
+    }
+
+    @DeleteMapping("/track/{id}")
+    public ResponseEntity<?> deleteTrack(@PathVariable int id){
+        trackService.deleteTrack(id);
+        return new ResponseEntity<String>("deleted successfully",HttpStatus.OK);
     }
 }
