@@ -66,4 +66,11 @@ public class TrackController {
         trackService.deleteTrack(id);
         return new ResponseEntity<String>("deleted successfully",HttpStatus.OK);
     }
+
+    
+    @GetMapping("/track/{name}")
+    public ResponseEntity<?> trackByName(@PathVariable String name){
+
+        return new ResponseEntity<>( trackService.trackByName(name),HttpStatus.OK);
+    }
 }
