@@ -28,4 +28,22 @@ public class TrackServiceImpl implements TrackService {
     public List<Track> getAllTrack() {
         return trackRepository.findAll();
     }
+    
+    @Override
+    public Boolean updateTrack(Track track,int id) throws TrackNotFoundException {
+       Optional<Track> track1= trackRepository.findById(id);
+        if(!track1.isPresent()){
+            return false;
+        }
+        track.setId(id);
+        trackRepository.save(track);
+        return true;
+
+    }
+
+    @Override
+    public void deleteTrack(int id) {
+        trackRepository.deleteById(id);
+
+    }
 }
