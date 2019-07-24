@@ -45,4 +45,24 @@ public class TrackController {
         return new ResponseEntity<List<Track>>(trackService.getAllTrack(),HttpStatus.OK);
 
     }
+    
+    @PutMapping("/track/{id}")
+    public ResponseEntity<?> getTrack(@RequestBody Track track,@PathVariable("id") int id) {
+
+        try {
+            trackService.updateTrack(track, id);
+            return new ResponseEntity<String>("updated successfully",HttpStatus.CREATED);
+        }
+        catch (TrackNotFoundException e){
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+        }
+
+    }
+
+    @DeleteMapping("/track/{id}")
+    public ResponseEntity<?> deleteTrack(@PathVariable int id){
+        trackService.deleteTrack(id);
+        return new ResponseEntity<String>("deleted successfully",HttpStatus.OK);
+    }
+    
 }
