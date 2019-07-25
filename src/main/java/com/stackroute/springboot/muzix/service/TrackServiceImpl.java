@@ -17,8 +17,26 @@ import java.util.Optional;
 public class TrackServiceImpl implements TrackService , ApplicationListener<ContextRefreshedEvent> {
 
     //overriding all the methods from trackservice interface
+
+    @Value("${track.1.id}")
+    private int id;
+    @Value("${track.1.name}")
+    private String name;
+    @Value("${track.1.content}")
+    private String content;
+    @Value("${track.1.status}")
+    private String status;
+
+    @Value("${track.2.id}")
+    private int id2;
+    @Value("${track.2.name}")
+    private String name2;
+    @Value("${track.2.content}")
+    private String content2;
+    @Value("${track.2.status}")
+    private String status2;
+
     @Autowired
-//    @Value("${sourceLocation:c:/temp/input}")
     TrackRepository trackRepository;
 
     public TrackServiceImpl(TrackRepository trackRepository) {
@@ -67,7 +85,7 @@ public class TrackServiceImpl implements TrackService , ApplicationListener<Cont
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        trackRepository.save(new Track(1,"track name","track content","active"));
-        trackRepository.save(new Track(10,"track name","track content","active"));
+        trackRepository.save(new Track(id,name,content,status));
+        trackRepository.save(new Track(id2,name2,content2,status2));
     }
 }
