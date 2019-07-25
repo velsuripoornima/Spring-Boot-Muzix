@@ -6,13 +6,15 @@ import com.stackroute.springboot.muzix.model.Track;
 import com.stackroute.springboot.muzix.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service("TrackService")  //it is a service class
-public class TrackServiceImpl implements TrackService {
+public class TrackServiceImpl implements TrackService , ApplicationListener<ContextRefreshedEvent> {
 
     //overriding all the methods from trackservice interface
     @Autowired
@@ -62,5 +64,10 @@ public class TrackServiceImpl implements TrackService {
     }
 
 
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
+        trackRepository.save(new Track(1,"track name","track content","active"));
+        trackRepository.save(new Track(10,"track name","track content","active"));
+    }
 }

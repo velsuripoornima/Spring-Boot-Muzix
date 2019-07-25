@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class TrackController {
 
-    @Value("track")
+
      String property;
     //using the class trackservice
     @Autowired
@@ -24,28 +24,16 @@ public class TrackController {
         this.trackService = trackService;
     }
 
-    @PostMapping()
+    @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) throws Exception{
         ResponseEntity responseEntity;
         trackService.saveTrack(track);
         responseEntity=new ResponseEntity<String>("row added successfully", HttpStatus.CREATED);
         return responseEntity;
-//        try{
-//            //if trackservice having any values it save to track
-//            trackService.saveTrack(track);
-//            responseEntity=new ResponseEntity<String>("row added successfully", HttpStatus.CREATED);
-//            return responseEntity;
-//        }
-//        catch (UserAlreadyExistException e){
-//
-//            //otherwise it will rise an exception
-//            responseEntity=new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
-//            return responseEntity;
-//        }
     }
 
     @GetMapping("track")
-    public ResponseEntity<?> getAllTrack(@RequestBody Track track){
+    public ResponseEntity<?> getAllTrack(){
 
         //getting all tracks
         return new ResponseEntity<List<Track>>(trackService.getAllTrack(),HttpStatus.OK);
