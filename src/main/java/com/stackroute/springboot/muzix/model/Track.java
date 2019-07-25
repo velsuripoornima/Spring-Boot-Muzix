@@ -24,7 +24,4 @@ public class Track {
     private String content;
     @Value("nmoireu")
     private String status;
-
-
-
 }

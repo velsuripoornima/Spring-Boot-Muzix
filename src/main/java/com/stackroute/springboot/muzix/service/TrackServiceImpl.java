@@ -42,14 +42,14 @@ public class TrackServiceImpl implements TrackService , ApplicationListener<Cont
 
     @Override
     public Track updateTrack(Track track,int id) throws TrackNotFoundException {
-       Optional<Track> track1= trackRepository.findById(id);
-        if(!track1.isPresent()){
+        Optional<Track> track1 = trackRepository.findById(id);
+        if (!track1.isPresent()) {
             throw new TrackNotFoundException("track not found exception");
         }
         track.setId(id);
-        return  trackRepository.save(track);
-
+        return trackRepository.save(track);
     }
+
 
     @Override
     public void deleteTrack(int id) {
